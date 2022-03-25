@@ -98,7 +98,7 @@ fetch(url)
                 console.log(productInLocalStorage);
                 localStorage.setItem("product", JSON.stringify(productInLocalStorage));
             }
-            else if(productInLocalStorage != null ){e
+            else if(productInLocalStorage != null ){
                 for(i = 0 ; i < productInLocalStorage.length; i++){
                     if(productInLocalStorage[i]._id == product._id && productInLocalStorage[i].color == product.color){
                         return(
