@@ -41,3 +41,18 @@ fetch(url)
     })
     
 
+///// Afficher quantité panier ////////////////////
+
+/*let produitLocal = JSON.parse(localStorage.getItem("product"))
+let meubleQuantiteTotal = []
+console.log(produitLocal);
+
+if(produitLocal) {
+    produitLocal.forEach((meuble => {
+        meubleQuantiteTotal.push(meuble.quantity);
+        console.log(meubleQuantiteTotal);
+    }));
+    document.getElementById('cart_basket').textContent = `${eval(meubleQuantiteTotal.join("+"))}`;
+}else{
+    //vidéo Javascript19 12:10
+}*/

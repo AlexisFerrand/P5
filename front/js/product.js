@@ -92,13 +92,13 @@ fetch(url)
 
             let productInLocalStorage = JSON.parse(localStorage.getItem("product"));
 
-            if(productInLocalStorage == null){
+            if(productInLocalStorage == null && product.quantity > 0 && product.color != ""){
                 productInLocalStorage = [];
                 productInLocalStorage.push(product);
                 console.log(productInLocalStorage);
                 localStorage.setItem("product", JSON.stringify(productInLocalStorage));
             }
-            else if(productInLocalStorage != null ){
+            else if(productInLocalStorage != null && product.quantity > 0 && product.color != ""){
                 for(i = 0 ; i < productInLocalStorage.length; i++){
                     if(productInLocalStorage[i]._id == product._id && productInLocalStorage[i].color == product.color){
                         return(
@@ -110,7 +110,16 @@ fetch(url)
                     }
                 }
                 for (i = 0; i < productInLocalStorage.length; i++){
-
+                    if(productInLocalStorage[i]._id == product._id && 
+                        productInLocalStorage[i].color != product.color || 
+                        productInLocalStorage[i]._id != product._id){
+                        return(
+                            console.log("nouveau"),
+                            productInLocalStorage.push(product),
+                            localStorage.setItem('product', JSON.stringify(productInLocalStorage)),
+                            (productInLocalStorage = JSON.parse(localStorage.getItem("product")))
+                        );
+                    }
                 }
             }
              
