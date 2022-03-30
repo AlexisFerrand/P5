@@ -231,7 +231,8 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
 
         localStorage.setItem('contact', JSON.stringify(contact));
         localStorage.setItem('addProduct', JSON.stringify(addProduct));
-        console.log(product);
+        
+
       /*  //Envoi de l'objet "sendBack" vers le serveur
         const promise01 = fetch('http://localhost:3000/api/products/order', {
             method: "POST",
