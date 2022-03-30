@@ -90,47 +90,182 @@ for(i = 0 ; i < addProduct.length; i++){
     document.querySelector('#totalPrice').textContent = totalPrice;
 }
 };
-//dans if addProduct ?
-/*let ouai = document.querySelector('input[type="number"]');
-console.log(ouai);
-let quantity = document.querySelector('input').value;
-document.querySelector('input[type="number"]').addEventListener('change', function (){
-    console.log(ouai.value);
-})*/
-
-/*
-let test = document.querySelectorAll('cart__item__content__settings__quantity.input');
-console.log(test);
-let quantitySelectorAll = document.getElementsByClassName('itemQuantity').value;
-console.log(quantitySelectorAll);*/
-/*
-quantitySelectorAll.forEach((quantitySelector) =>{
-    quantitySelector.addEventListener('change', function(){
-        console.log('test');
-})
-})*/
 
 
 
-//FORMULAIRE
+
+                // Validation Prénom //
+let aFirstName = false;
+const firstNameValidator = () => {
 let firstName = document.querySelector('input[id="firstName"]');
 firstName.addEventListener('change', function() {
-    let firstNameRegEx = new RegExp("^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$", "g");
+    let firstNameRegEx = new RegExp("^[a-zA-Z\-']+$", "g");
 
+    // On test l'expression régulaire //
     let testFirstName = firstNameRegEx.test(firstName.value);
     let msgError = document.querySelector('#firstNameErrorMsg');
 
     if(testFirstName){
-        
+         msgError.innerHTML = "Prénom valide";
+         aFirstName = true;
     }
     else if(testFirstName == false){
-        msgError.innerHTML = `<div style="color:red"><strong>Le prénom saisie n\'est pas valide veuillez le modifie</strong></div>`;
+        msgError.innerHTML = `<div style="color:red"><strong>Le prénom saisie n\'est pas valide veuillez le modifier</strong></div>`;
+        aFirstName = false;
+    }
+    
+})}
+
+
+
+// Validation Nom //
+let aLastName = false;
+const lastNameValidator = () => {
+let lastName = document.querySelector('input[id="lastName"]');
+lastName.addEventListener('change', function() {
+    let lastNameRegEx = new RegExp("^[a-zA-Z\-']+$", "g");
+
+    // On test l'expression régulaire //
+    let testLastName = lastNameRegEx.test(lastName.value);
+    let msgError = document.querySelector('#lastNameErrorMsg');
+
+    if(testLastName){
+         msgError.innerHTML = "Nom valide";
+         aLastName = true;
+    }
+    else if(testLastName == false){
+        msgError.innerHTML = `<div style="color:red"><strong>Le nom saisie n\'est pas valide veuillez le modifier</strong></div>`;
+        aLastName = false;
     }
 
 })
+}
+
+// Validation Adresse //
+let aAddress = false;
+const addressValidator = () => {
+let address = document.querySelector('input[id="address"]');
+address.addEventListener('change', function() {
+    let addressRegEx = new RegExp("^([a-zA-Z0-9\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z0-9\u0080-\u024F]*$" , "g");
+
+    // On test l'expression régulaire //
+    let testAddress = addressRegEx.test(address.value);
+    let msgError = document.querySelector('#addressErrorMsg');
+
+    if(testAddress){
+         msgError.innerHTML = "Adresse valide";
+         aAddress = true;
+    }
+    else if(testAddress == false){
+        msgError.innerHTML = `<div style="color:red"><strong>L'adresse saisie n\'est pas valide veuillez la modifier</strong></div>`;
+        aAddress = false;
+    }
+
+})
+}
+
+///VILLE
+let aCity = false;
+const cityValidator = () => {
+    let city = document.querySelector('input[id="city"]');
+    city.addEventListener('change', function() {
+        let cityRegEx = new RegExp(`^([a-zA-Z\u0080-\u024F]+(?:. |-| |'))*[a-zA-Z\u0080-\u024F]*$`,'g');
+    
+        // On test l'expression régulaire //
+        let testCity = cityRegEx.test(city.value);
+        let msgError = document.querySelector('#cityErrorMsg');
+    
+        if(testCity){
+             msgError.innerHTML = "Adresse valide";
+             aCity = true;
+        }
+        else if(testCity == false){
+            msgError.innerHTML = `<div style="color:red"><strong>La ville saisie n\'est pas valide veuillez la modifier</strong></div>`;
+            aCity = false;
+        }
+    
+    })
+    }
 
 
+// Validation e-mail //
+let aEmail = false;
+const emailValidator = () => {
+    let email = document.querySelector('input[id="email"]');
+    email.addEventListener('change', function() {
+        let emailRegEx = new RegExp('^[a-zA-Z0-9.-_]+[@]{1}[a-zA-Z0-9.-_]+[.]{1}[a-z]{2,10}$', 'g');
 
+    
+        // On test l'expression régulaire //
+        let testEmail = emailRegEx.test(email.value);
+        let msgError = document.querySelector('#emailErrorMsg');
+    
+        if(testEmail){
+             msgError.innerHTML = "E-mail valide";
+             aEmail = true;
+        }
+        else if(testEmail == false){
+            msgError.innerHTML = `<div style="color:red"><strong>L'adresse mail saisie n\'est pas valide veuillez la modifier</strong></div>`;
+            aEmail = false;
+        }
+    
+    })
+    }
+const validationSubmit = () => {
+document.querySelector('input[type="submit"]').addEventListener('click', function (e){
+    e.preventDefault();
+    if(aFirstName == true && aLastName == true && aAddress == true && aCity == true && aEmail == true){
+        const contact = {
+            'firstName': document.querySelector('input[name="firstName"]').value,
+            'lastName': document.querySelector('input[name="lastName"]').value,
+            'address': document.querySelector('input[name="address"]').value,
+            'city': document.querySelector('input[name="city"]').value,
+            'email': document.querySelector('input[name="email"]').value,
+        }
+        
+
+        const sendBack = {
+            contact,
+            addProduct,
+        }
+
+        localStorage.setItem('contact', JSON.stringify(contact));
+        localStorage.setItem('addProduct', JSON.stringify(addProduct));
+        console.log(product);
+      /*  //Envoi de l'objet "sendBack" vers le serveur
+        const promise01 = fetch('http://localhost:3000/api/products/order', {
+            method: "POST",
+            body: JSON.stringify(sendBack),
+            headers: {
+                "Content-Type" : "application/json",
+            },
+        });
+
+        promise01.then(async(response)=>{
+            try{
+                console.log("response");
+                console.log(response);
+
+                const contenu = await response.JSON();
+                console.log(contenu);
+            }catch(e){
+                console.log(e);
+            }
+        })
+    }else{
+        
+        
+    }*/
+}})
+}
 
 panierDisplay();
 removeProduct();
+firstNameValidator();
+lastNameValidator();
+addressValidator();
+cityValidator();
+emailValidator();
+validationSubmit();
+
+
