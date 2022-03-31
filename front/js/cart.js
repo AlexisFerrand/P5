@@ -1,60 +1,85 @@
-let someProduct = [];
-let addProduct = JSON.parse(localStorage.getItem("product"));
+const recupProduct = () => {
+    let products = [];
+    let product = JSON.parse(localStorage.getItem("product"));
+    if (product != null) {
+        product.forEach(oneProduct => {
+            let productId = oneProduct._id;
+            let url =`http://localhost:3000/api/products/${productId}`;
+            let finalProduct = fetch(url)
+                .then(function(response) {
+                    return response.json();
+                })
+                .then(function(resolve) {
+                    console.log(resolve);
+                    return {
+                        'color': oneProduct.color,
+                        'qauntity': oneProduct.quantity,
+                        'name': resolve.name,
+                        'price': resolve.price,
+                        'imgUrl': resolve.imageUrl,
+                        '_id': productId,
+                    };
+                });        
+            products.push(finalProduct);    
+        })
+    }
+    return products;
+}
 
 
 /// Fonction d'ajout de produit au panier ///
 const panierDisplay = async () => {
-    
+    let addProduct = await recupProduct();
     if(addProduct){
-         await addProduct;
-         console.log(addProduct);
-
         let cart__items = document.getElementById('cart__items');
+        addProduct.then(function(data){
+            cart__items.innerHTML = data.map((product) => `
+            <article class="cart__item" data-id="${product._id}" data-color="${product.color}">
+            <div class="cart__item__img">
+             <img src="${product.imgUrl}" alt="Photographie du canapé ${product.name}">
+            </div>
+            <div class="cart__item__content">
+              <div class="cart__item__content__description">
+                <h2>${product.name}</h2>
+                <p>${product.color}</p>
+                <p>${product.price * product.quantity } €</p>
+              </div>
+              <div class="cart__item__content__settings">
+                <div class="cart__item__content__settings__quantity">
+                  <p>Qté : ${product.quantity}</p>
+                  <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="0">
+                </div>
+                <div class="cart__item__content__settings__delete" data-id="${product._id}" data-color="${product.color}">
+                  <p class="deleteItem">Supprimer</p>
+                </div>
+              </div>
+            </div>
+          </article>`,);
+           
+          /// Fais le total article + total prix ///
+    let totalQ = 0;
+    let totalPrice = 0;
+for(i = 0 ; i < data.length; i++){
+    totalQ += data[i].quantity;
+    document.querySelector('#totalQuantity').textContent = totalQ;
+    
+    totalPrice += data[i].price * data[i].quantity;
+    console.log(totalPrice);
+    document.querySelector('#totalPrice').textContent = totalPrice;
+}
+        })
 
-         cart__items.innerHTML = addProduct.map((product) => `
-         <article class="cart__item" data-id="${product._id}" data-color="${product.color}">
-         <div class="cart__item__img">
-          <img src="${product.img_url}" alt="Photographie du canapé ${product.name}">
-         </div>
-         <div class="cart__item__content">
-           <div class="cart__item__content__description">
-             <h2>${product.name}</h2>
-             <p>${product.color}</p>
-             <p>${product.price * product.quantity } €</p>
-           </div>
-           <div class="cart__item__content__settings">
-             <div class="cart__item__content__settings__quantity">
-               <p>Qté : ${product.quantity}</p>
-               <input type="number" class="itemQuantity" name="itemQuantity" min="1" max="100" value="0">
-             </div>
-             <div class="cart__item__content__settings__delete" data-id="${product._id}" data-color="${product.color}">
-               <p class="deleteItem">Supprimer</p>
-             </div>
-           </div>
-         </div>
-       </article>`,);
-        return;
+         
         
     }
 
 
-/// Fais le total article + total prix ///
-    let totalQ = 0;
-    let totalPrice = 0;
-for(i = 0 ; i < addProduct.length; i++){
-    totalQ += addProduct[i].quantity;
-    document.querySelector('#totalQuantity').textContent = totalQ;
-    
-    totalPrice += addProduct[i].price * addProduct[i].quantity;
-    console.log(totalPrice);
-    document.querySelector('#totalPrice').textContent = totalPrice;
-}
+
 }
 
 ///// Fonction suppression de produit //////
 const removeProduct = async (panierDisplay) => {
-    await panierDisplay;
-    console.log('salut');
+    let addProduct = await recupProduct();
     let corbeilles = document.querySelectorAll('.cart__item__content__settings__delete');
     console.log(corbeilles);
 
@@ -223,18 +248,19 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
             'email': document.querySelector('input[name="email"]').value,
         }
         
-
+let products = ["a557292fe5814ea2b15c6ef4bd73ed83"];
         const sendBack = {
             contact,
-            addProduct,
+           // addProduct,
+           products,
         }
 
         localStorage.setItem('contact', JSON.stringify(contact));
         localStorage.setItem('addProduct', JSON.stringify(addProduct));
-        localStorage.setItem('addProduct', JSON.stringify(addProduct));
+        
         
 
-      /*  //Envoi de l'objet "sendBack" vers le serveur
+        //Envoi de l'objet "sendBack" vers le serveur
         const promise01 = fetch('http://localhost:3000/api/products/order', {
             method: "POST",
             body: JSON.stringify(sendBack),
@@ -246,18 +272,15 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
         promise01.then(async(response)=>{
             try{
                 console.log("response");
-                console.log(response);
+               // console.log(response);
 
-                const contenu = await response.JSON();
+                const contenu = await response.json();
                 console.log(contenu);
             }catch(e){
                 console.log(e);
             }
-        })git chekc
-    }else{
-        
-        c
-    }*/
+        })
+    
 }})
 }
 

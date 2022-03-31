@@ -61,12 +61,12 @@ fetch(url)
 
             //Récupération données produits dans l'objet
             const product ={
-                "name": h1.innerText,
+              //  "name": h1.innerText,
                 "color": colorChoise,
-                "price": price.innerText,
+              //  "price": price.innerText,
                 "quantity": quantity,
                 "_id": idUrl,
-                "img_url": img.src,
+              //  "img_url": img.src,
             }
             
 
