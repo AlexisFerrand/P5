@@ -231,6 +231,7 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
 
         localStorage.setItem('contact', JSON.stringify(contact));
         localStorage.setItem('addProduct', JSON.stringify(addProduct));
+        localStorage.setItem('addProduct', JSON.stringify(addProduct));
         
 
       /*  //Envoi de l'objet "sendBack" vers le serveur
@@ -252,10 +253,10 @@ document.querySelector('input[type="submit"]').addEventListener('click', functio
             }catch(e){
                 console.log(e);
             }
-        })
+        })git chekc
     }else{
         
-        
+        c
     }*/
 }})
 }
