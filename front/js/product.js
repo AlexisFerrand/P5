@@ -46,7 +46,7 @@ fetch(url)
 const addBasket = () => {
     //Boutton ajout au panier
     const button = document.querySelector('button');
-//L'ajout au panier est paramétré pour fonctionner seulement si certaines conditions sont respéctées (couleur et quantité sélectionnée)
+//L'ajout au panier est paramétré pour fonctionner seulement si certaines conditions sont respéctées (couleur et quantité sélectionnés)
     button.addEventListener('click', function() {
         let colors = document.querySelector('#colors');
         let quantity = parseInt(document.querySelector('input').value);

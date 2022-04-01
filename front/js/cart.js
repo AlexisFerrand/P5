@@ -2,6 +2,7 @@ const cartItems = document.getElementById("cart__items");
 var productSaved = JSON.parse(localStorage.getItem('product'));
 
 function panierDisplay() {
+    //Si il n'y a aucun produit dans le localstorage :
     if (productSaved == null || productSaved == [] || productSaved.length < 1) {
         cartItems.innerHTML = 'Votre panier est vide.';
         calculPrixTotal();
@@ -10,6 +11,8 @@ function panierDisplay() {
             alert('Votre panier est vide.');
         })
     } else {
+        //Si il y a un ou plusieurs produits dans le localstorage : Boucle pour créer l'affichage de chaque produit
+        //Qui a un ID ou une couleur différente (paramétré dans le script.js)
         cartItems.innerHTML = "";
         let counter = 0;
         productSaved.forEach(oneProduct => {
@@ -97,7 +100,7 @@ const changeQuantite = () => {
                 if (product._id === idProductToChange && product.color === colorProductToChange) {
                     if (input.value < 0) {
                         finalProductSave.push(product);
-                        alert("la quantite doit etre supérieure ou égale à zéro");
+                        alert("La quantité doit être supérieure ou égale à zéro");
                     } else if (input.value == 0) {
                         articleToRemove.remove();
                     } else {
@@ -256,6 +259,7 @@ const emailValidator = () => {
 const validationSubmit = () => {
     document.querySelector('input[type="submit"]').addEventListener('click', function(e) {
         e.preventDefault();
+        //Vérifie si toutes les input ont bien été renseigné en respectant toutes les regex
         if (aFirstName == true && aLastName == true && aAddress == true && aCity == true && aEmail == true) {
             const contact = {
                 'firstName': document.querySelector('input[name="firstName"]').value,
