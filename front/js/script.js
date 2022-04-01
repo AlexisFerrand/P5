@@ -1,19 +1,13 @@
 let url = `http://localhost:3000/api/products`;
 
-//Surement des erreurs au niveau des guillemets dans le href
-
-/*let aNew = setAttribute('a', `alt=`);
-        items.appendChild(aNew);
-        items.parentNode.set*/
-
+//Appel de l'API pour récupérer le tableau des produits
 fetch(url)
     .then(function(response){
         return response.json();
     })
     .then(function(data){
-        console.log(data);
         let items = document.querySelector('#items');
-
+//Pour chaque produit présent dans le serveur les éléments ci dessous sont créés:
         for (let i of data){
         
             let a = document.createElement('a');
@@ -38,21 +32,8 @@ fetch(url)
             p.textContent = i.description; 
             article.appendChild(p);           
         }
-    })
+    }).catch(function(error){
+        console.log("Il y a eu une erreur dans l'importation des données :" + error);
+    });
     
 
-///// Afficher quantité panier ////////////////////
-
-/*let produitLocal = JSON.parse(localStorage.getItem("product"))
-let meubleQuantiteTotal = []
-console.log(produitLocal);
-
-if(produitLocal) {
-    produitLocal.forEach((meuble => {
-        meubleQuantiteTotal.push(meuble.quantity);
-        console.log(meubleQuantiteTotal);
-    }));
-    document.getElementById('cart_basket').textContent = `${eval(meubleQuantiteTotal.join("+"))}`;
-}else{
-    //vidéo Javascript19 12:10
-}*/
