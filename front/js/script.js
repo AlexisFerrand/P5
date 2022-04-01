@@ -34,6 +34,7 @@ fetch(url)
         }
     }).catch(function(error){
         console.log("Il y a eu une erreur dans l'importation des données :" + error);
+        alert("Il y a eu une erreur dans l'importation des données :" + error);
     });
     
 

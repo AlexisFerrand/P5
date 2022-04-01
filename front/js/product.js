@@ -1,8 +1,9 @@
+//Cherche le paramétre de l'url et en extrait ensuite l'ID
 let params = new URL(document.location).searchParams;
 let idUrl = params.get("id");
 
 let url = `http://localhost:3000/api/products/${idUrl}`;
-
+//Va chercher grâce à fetch les données spécifique sur le produit cliqué
 fetch(url)
     .then(function(response) {
         return response.json();
@@ -34,7 +35,7 @@ fetch(url)
             optionM.appendChild(option);
         }
 
-
+//Appel la fonction d'ajout au panier 
         addBasket();
 
     }).catch(function(error){
@@ -45,7 +46,7 @@ fetch(url)
 const addBasket = () => {
     //Boutton ajout au panier
     const button = document.querySelector('button');
-
+//L'ajout au panier est paramétré pour fonctionner seulement si certaines conditions sont respéctées (couleur et quantité sélectionnée)
     button.addEventListener('click', function() {
         let colors = document.querySelector('#colors');
         let quantity = parseInt(document.querySelector('input').value);
@@ -66,6 +67,7 @@ const addBasket = () => {
             let label2 = document.querySelector('label[for="itemQuantity"]');
             label2.textContent = 'Nombre d\'article(s) (1-100) :';
         }
+        //Si les conditions sont bien respéctées à ce moment là seulement le produit sélectionné est mis dans le localstorage
         if (quantity > 0 && colors.value != "") {
             let products = JSON.parse(localStorage.getItem('product'));
             let product = {
