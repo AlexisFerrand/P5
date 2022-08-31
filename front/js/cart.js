@@ -99,7 +99,7 @@ const changeQuantite = () => {
             productSaved.forEach(product => {
                 if (product._id === idProductToChange && product.color === colorProductToChange) {
                     if (input.value < 0) {
-                        finalProductSave.push(product);
+                        articleToRemove.remove();
                         alert("La quantité doit être supérieure ou égale à zéro");
                     } else if (input.value == 0) {
                         articleToRemove.remove();
