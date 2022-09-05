@@ -64,6 +64,7 @@ function panierDisplay() {
     }
 }
 
+// Fonction qui calcule et affiche le prix et quantité totale pour chaque produit et l'ensemble des produits
 const calculPrixTotal = () => {
     let total = 0;
     let qteTotal = 0;
@@ -88,6 +89,7 @@ const calculPrixTotal = () => {
     }
 }
 
+// Fonction qui applique dynamiquement le changement de quantité dans les inputs
 const changeQuantite = () => {
     const quantityInputs = document.querySelectorAll('.itemQuantity');
     quantityInputs.forEach(input => {
@@ -117,7 +119,7 @@ const changeQuantite = () => {
     })
 }
 
-///// Fonction suppression de produit //////
+// Fonction suppression de produit 
 function removeProduct() {
     const deleteBtns = document.querySelectorAll('.deleteItem');
     deleteBtns.forEach(btn => {
@@ -256,6 +258,7 @@ const emailValidator = () => {
 
     })
 }
+// Fonction validation formulaire, regarde si chacun des inputs est true par rapport à la regEx
 const validationSubmit = () => {
     document.querySelector('input[type="submit"]').addEventListener('click', function(e) {
         e.preventDefault();

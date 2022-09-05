@@ -42,7 +42,7 @@ fetch(url)
         console.log("Il y a une erreur :" + error);
     })
 
-
+//Fonction d'ajour au panier, vérifie quanité + couleur et envoi au localstorage  
 const addBasket = () => {
     //Boutton ajout au panier
     const button = document.querySelector('button');
@@ -96,7 +96,7 @@ const addBasket = () => {
         }
     })
 };
-
+//Fonction pour rediriger sur la page d'accueil pour continuer les achats ou passer au panier
 function redirectUser() {
     if (confirm("Votre produit a été ajouté au panier, voulez vous continuer dans votre panier ?") == true) {
         window.location.href = "cart.html";
